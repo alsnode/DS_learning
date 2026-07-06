@@ -6,7 +6,7 @@ import seaborn as sns
 
 df = sns.load_dataset('titanic')
 
-print(df.head)
-print(df.info)
-print(df.axes[0], df.axes[1])
+
+text_params = df.select_dtypes('string')
+print(text_params)
 
