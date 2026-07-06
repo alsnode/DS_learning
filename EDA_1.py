@@ -8,5 +8,5 @@ df = sns.load_dataset('titanic')
 
 print(df.head)
 print(df.info)
-print(df.axis[0], df.axis[1])
+print(df.axes[0], df.axes[1])
 
