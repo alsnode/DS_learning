@@ -23,5 +23,5 @@ def matrix_formula():
 matrix_formula()
 
 reg = LinearRegression().fit(X, y)
-
-print(reg)
+reg.score(X, y)
+print(reg.score(X, y))
