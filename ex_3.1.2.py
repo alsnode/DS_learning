@@ -1,5 +1,5 @@
 from sklearn.datasets import make_classification
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, Ridge, Lasso, ElasticNet
 from sklearn.metrics import accuracy_score
 import numpy as np
 
@@ -12,9 +12,9 @@ X, y = make_classification(
 
 feature_names = ['income', 'debt_ratio', 'age', 'credit_history_len', 'num_late_payments', 'employment_years']
 
-classification = LogisticRegression().fit(X, y).coef_
+model = LogisticRegression().fit(X, y)
 
-print(classification)
+print(model.coef_)
 
 unique, counts = np.unique(y, return_counts=True)
 print(dict(zip(unique, counts)))
