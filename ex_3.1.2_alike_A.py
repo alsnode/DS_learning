@@ -30,9 +30,11 @@ print(train_r2, test_r2)
 
 for i in (0.1, 1, 10, 100):
     clf = Ridge(alpha=i)
-    train_ridge = clf.predict(X_train, y_train)
-    r2_train_ridge = r2_score(y_train, train_ridge)
-    r2_test_ridge = r2_score(y_test, train_ridge)
+    flf = clf.fit(X_train, y_train)
+    train_pred = flf.predict(X_train)
+    test_pred  = flf.predict(X_test)
+    r2_train_ridge = r2_score(y_train, train_pred)
+    r2_test_ridge = r2_score(y_test, test_pred)
     print(f"This is r2 of train ridge {r2_train_ridge}")
     print(f"This is r2 of test ridge {r2_test_ridge}")
 
