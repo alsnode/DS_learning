@@ -47,7 +47,7 @@ X_train, X_val, y_train, y_val = train_test_split(
 
 rf = RandomForestClassifier(
     n_estimators = 200, max_depth=10,
-    max_features='sqrt', bootstrap='True', 
+    max_features='sqrt', bootstrap=True, 
     class_weight='balanced', n_jobs=-1
 )
 rf.fit(X_train, y_train)
@@ -56,8 +56,21 @@ print(rf.feature_importances_)
 xgb = XGBClassifier(
     n_estimators=200, learning_rate=0.1,
     max_depth=4, subsample=0.8,
-    colsample_bytree=0.8, eval_metric='logloss'
+    colsample_bytree=0.8, eval_metric='logloss',
+    early_stopping_rounds=20
 )
 
-xgb.fit(X_train, y_train, eval_set=[(X_val, y_val)], early_stopping_rounds=20)
-print(xgb.feature_importance_)
+xgb.fit(X_train, y_train, eval_set=[(X_val, y_val)])
+print(xgb.feature_importances_)
+
+proba_churn = xgb.predict_proba(X_test)[:, 1]
+risk_df = pd.DataFrame({
+    'churn_probability': proba_churn
+}, index=X_test.index)
+
+top_20 = risk_df.sort_values('churn_probability', ascending=False).head(20)
+print(top_20)
+
+top_20_full = X_test.loc[top_20.index].copy()
+top_20_full['churn_probability'] = top_20['churn_probability']
+print(top_20_full.sort_values('churn_probability', ascending=False))
