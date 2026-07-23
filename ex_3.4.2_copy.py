@@ -22,7 +22,7 @@ df.loc[np.random.choice(n, 15), 'num_sessions'] = -1# ошибка в данны
 df.loc[df['num_sessions'] < 0, 'num_sessions'] = 0
 
 df['total_spent'].fillna(df['total_spent'].median())
-df['referral_source'].fillna(df['referal_source'].mode())
+df['referral_source'].fillna(df['referral_source'].mode())
 
 df['account_age_days'] = np.datetime64('today') - df['signup_date']
 
