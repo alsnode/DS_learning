@@ -19,12 +19,24 @@ df = pd.DataFrame({
 df.loc[np.random.choice(n, 20), 'total_spent'] = np.nan
 df.loc[np.random.choice(n, 15), 'num_sessions'] = -1# ошибка в данных
 
+df.loc[df['num_sessions'] < 0, 'num_sessions'] = 0
 
-for i in df['num_sessions']:
-    if i / 1 <= 0:
-        df.at[df[i].index, 'num_sessions'] = 0
-    else:
-        continue
+df['total_spent'].fillna(df['total_spent'].median())
+df['referral_source'].fillna(df['referal_source'].mode())
+
+df['account_age_days'] = np.datetime64('today') - df['signup_date']
+
+pd.get_dummies(df['country'])
+pd.get_dummies(df['referral_source'])
+
+
+
+
+
+
+
+
+
 
 
 
